@@ -6,7 +6,26 @@ const img = document.querySelector(".img");
 const getImage = async function () {
     const res = await fetch('https://picsum.photos/v2/list?limit=100');
     const images = await res.json()
-    console.log(images);
+    imageObject = randomImage(images);
+    displayImage(imageObject);
+
+    };
+
+    button.addEventListener("click", function(){
+        getImage();
+    });
+
+
+function randomImage (images){
+    const randomIndex = Math.floor(Math.random() * images.length);
+    return images[randomIndex];
+    
 };
 
-getImage();
+function displayImage (randomImage){
+    const author = randomImage.author;
+    const imageAddress = randomImage.download_url;
+    authorSpan.innerText = author;
+    img.src = imageAddress;
+    imgDiv.classList.remove("hide");
+};
